@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/Player/Idle.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/Player/Run.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/Player/Jump.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/Player/Die.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/MonsterA/Idle.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/MonsterA/Run.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/MonsterB/Idle.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sprites/MonsterB/Run.png</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sounds/PlayerJump.wav</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sounds/PlayerKilled.wav</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sounds/MonsterKilled.wav</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sounds/GemCollected.wav</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Font.spritefont</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
