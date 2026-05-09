@@ -64,9 +64,9 @@ namespace Platformer2D
         {
             if (!Active) return;
 
-            // BUG FIX: sprite do inimigo tem a face para a ESQUERDA por defeito.
-            // Quando direction=1 (vai para a direita) → flip para ficar de frente
-            // Quando direction=-1 (vai para a esquerda) → sem flip (face natural)
+            // sprite do inimigo tem a face para a ESQUERDA por defeito.
+            // Quando direction= 1 (vai para a direita) → flip para ficar de frente
+
             SpriteEffects effect = direction > 0
                 ? SpriteEffects.FlipHorizontally
                 : SpriteEffects.None;

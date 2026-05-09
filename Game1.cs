@@ -1,3 +1,4 @@
+using System.IO;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -8,14 +9,13 @@ using System.Net.Mime;
 
 namespace Platformer2D
 {
-    /// <summary>
     /// Classe principal do jogo. Herda de Game (MonoGame).
     /// Integra:
     ///   - Sistema de animação do MonoGame.Samples/Platformer2D
     ///   - Sons do MonoGame.Samples/Platformer2D
     ///   - Sistema de disparo adaptado do SpaceInvaders (TP1)
     ///   - Câmara, plataformas, inimigos e moedas desenvolvidos neste projeto
-    /// </summary>
+
     public class Game1 : Game
     {
         public const int ScreenWidth  = 800;
@@ -27,11 +27,15 @@ namespace Platformer2D
         private Texture2D             pixel;
         private SpriteFont            font;      // fonte para texto no ecrã
 
+        private Texture2D texBackground;
+
         private enum GameState { Menu, Playing, Win, GameOver }
         private GameState state        = GameState.Menu;
         private int       score        = 0;
         private int       totalEnemies = 0;
         private KeyboardState prevKeys;
+
+        private int highScore = 0; //high score para o jogo
 
         private Player           player;
         private List<Enemy>      enemies;
@@ -83,7 +87,7 @@ namespace Platformer2D
             // Animações do jogador
             animPlayerDie  = new Animation(Content.Load<Texture2D>("Sprites/Player/Die"),  0.08f, false, 12);
             animPlayerJump = new Animation(Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f,  false, 11);
-            animPlayerRun = new Animation(Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f,false,10);
+            animPlayerRun = new Animation(Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f,true,10);
             animPlayerIdle = new Animation(Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f,false,1);
 
             // Animações dos monstros
@@ -97,6 +101,11 @@ namespace Platformer2D
             soundKilled        = Content.Load<SoundEffect>("Sounds/PlayerKilled");
             soundMonsterKilled = Content.Load<SoundEffect>("Sounds/MonsterKilled");
             soundCoin          = Content.Load<SoundEffect>("Sounds/GemCollected");
+
+            //background
+            texBackground = Content.Load<Texture2D>("background_LunarDriftStudios");
+
+            LoadHighScore(); // Para o metodo de HighScores permamentes
         }
 
         private void SetupLevel()
@@ -234,8 +243,21 @@ namespace Platformer2D
             enemies.RemoveAll(e     => !e.Active);
             coins.RemoveAll(c       => !c.Active);
 
-            if (player.IsDead)      state = GameState.GameOver;
-            if (enemies.Count == 0) state = GameState.Win;
+          if (player.IsDead)
+        {
+            if (score > highScore) 
+            highScore = score;
+            SaveHighScore(); //permanente
+            state = GameState.GameOver;
+        }
+
+            if (enemies.Count == 0)
+        {
+            if (score > highScore) 
+            highScore = score;
+            SaveHighScore(); //permanente
+            state = GameState.Win;
+            }
         }
 
         // ── Rendering ──────────────────────────────────────────────────────────
@@ -273,6 +295,12 @@ namespace Platformer2D
             DrawRect(0, 0, ScreenWidth, ScreenHeight, new Color(10, 10, 30));
             DrawRect(0, ScreenHeight / 2, ScreenWidth, ScreenHeight / 2, new Color(5, 5, 20));
 
+            // Recorde — canto superior direito, fora do painel
+            DrawRect(ScreenWidth - 200, 10, 190, 36, new Color(20, 20, 60));
+            DrawRect(ScreenWidth - 200, 10, 190, 2,  Color.Gold); // borda dourada no topo
+            DrawText("RECORDE",       ScreenWidth - 105, 14, Color.Gold,  center: true, scale: 0.85f);
+            DrawText($"{highScore}",  ScreenWidth - 105, 28, Color.White, center: true, scale: 1f);
+            
             // Painel principal
             DrawRect(ScreenWidth / 2 - 220, 80, 440, 340, new Color(20, 20, 60));
             DrawRect(ScreenWidth / 2 - 218, 82, 436, 3,   new Color(100, 100, 255)); // borda topo
@@ -304,6 +332,7 @@ namespace Platformer2D
             DrawRect(ScreenWidth / 2 - 160, 305, 80, 24, new Color(40, 40, 100));
             DrawText("ESC",   ScreenWidth / 2 - 120, 309, Color.Yellow, center: true);
             DrawText("Sair",  ScreenWidth / 2 - 40,  309, Color.White);
+            
 
             // Botão Enter
             DrawRect(ScreenWidth / 2 - 140, 350, 280, 50, new Color(22, 100, 22));
@@ -313,6 +342,17 @@ namespace Platformer2D
 
         private void DrawPlaying(GameTime gameTime)
         {
+
+            // Parallax suave: background move a 30% da velocidade da câmara
+int bgW = texBackground.Width;
+int bgH = texBackground.Height;
+int offsetX = -(int)(camera.Position.X * 0.3f) % bgW;
+if (offsetX > 0) offsetX -= bgW;
+
+for (int x = offsetX; x < ScreenWidth; x += bgW)
+    spriteBatch.Draw(texBackground,
+        new Rectangle(x, ScreenHeight - bgH, bgW, bgH),
+        Color.White);
             // Plataformas
             foreach (Rectangle p in platforms)
             {
@@ -369,7 +409,7 @@ namespace Platformer2D
             DrawRect(0, 0, ScreenWidth, ScreenHeight, bgColor);
 
             // Painel central
-            DrawRect(ScreenWidth / 2 - 220, ScreenHeight / 2 - 80, 440, 160,
+            DrawRect(ScreenWidth / 2 - 220, ScreenHeight / 2 - 80, 440, 220,
                      new Color(0, 0, 0, 210));
             DrawRect(ScreenWidth / 2 - 218, ScreenHeight / 2 - 78, 436, 3,
                      win ? Color.LimeGreen : Color.OrangeRed);
@@ -383,15 +423,20 @@ namespace Platformer2D
             // Score final
             DrawText($"Score final: {score}", ScreenWidth / 2, ScreenHeight / 2 - 20,
                      Color.White, center: true, scale: 1.2f);
-
+                    
             // Barra de score final
             int maxScore = totalEnemies * 200 + 12 * Coin.Value;
             float pct    = maxScore > 0 ? score / (float)maxScore : 1f;
-            DrawRect(ScreenWidth / 2 - 160, ScreenHeight / 2 + 10, 320, 16, new Color(30, 30, 30));
-            DrawRect(ScreenWidth / 2 - 160, ScreenHeight / 2 + 10, (int)(320 * pct), 16, Color.Gold);
+            DrawText($"Recorde: {highScore}", ScreenWidth / 2, ScreenHeight / 2 + 5,
+            Color.Gold, center: true, scale: 1f);
+
+            DrawText($"Score atual: {score}", ScreenWidth / 2, ScreenHeight / 2 + 25,
+            score >= highScore ? Color.LimeGreen : Color.White,
+            center: true, scale: 1f);
+
 
             // Instrução reiniciar
-            DrawText("Prima R para voltar ao menu", ScreenWidth / 2, ScreenHeight / 2 + 40,
+            DrawText("Prima R para voltar ao menu", ScreenWidth / 2, ScreenHeight / 2 + 68,
                      new Color(200, 200, 200), center: true);
         }
 
@@ -429,5 +474,15 @@ namespace Platformer2D
                                    0f, Vector2.Zero, scale,
                                    SpriteEffects.None, 0f);
         }
+        private void SaveHighScore()
+{
+    File.WriteAllText("highscore.txt", highScore.ToString());
+}
+
+private void LoadHighScore()
+{
+    if (File.Exists("highscore.txt"))
+        int.TryParse(File.ReadAllText("highscore.txt"), out highScore);
+}
     }
 }

@@ -17,8 +17,10 @@
     <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sounds/MonsterKilled.wav</File>
     <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Sounds/GemCollected.wav</File>
     <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/Font.spritefont</File>
+    <File>C:/Users/Tiago Gonçalves/Desktop/Platformer2D/Content/background_LunarDriftStudios.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

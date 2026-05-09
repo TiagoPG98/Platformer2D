@@ -150,3 +150,4 @@ C:\Users\Tiago Gonçalves\Desktop\Platformer2D\obj\Debug\net6.0\refint\Platforme
 C:\Users\Tiago Gonçalves\Desktop\Platformer2D\obj\Debug\net6.0\Platformer2D.pdb
 C:\Users\Tiago Gonçalves\Desktop\Platformer2D\obj\Debug\net6.0\Platformer2D.genruntimeconfig.cache
 C:\Users\Tiago Gonçalves\Desktop\Platformer2D\obj\Debug\net6.0\ref\Platformer2D.dll
+C:\Users\Tiago Gonçalves\Desktop\Platformer2D\bin\Debug\net6.0\Content\background_LunarDriftStudios.xnb

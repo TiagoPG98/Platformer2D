@@ -12,6 +12,8 @@ namespace Platformer2D
     {
         public Vector2 Position;
         public bool    Active = true;
+        private float distanceTravelled = 0f;
+        private const float MaxRange = 400f; // pixels máximos de viagem
 
         private readonly float     direction;
         private readonly Texture2D texture;
@@ -32,6 +34,8 @@ namespace Platformer2D
 
         public void Update()
         {
+            distanceTravelled += Speed;
+            if (distanceTravelled >= MaxRange) Active = false;
             Position.X += Speed * direction;
             if (Position.X < -100 || Position.X > Game1.WorldWidth + 100)
                 Active = false;
