@@ -245,17 +245,19 @@ namespace Platformer2D
 
           if (player.IsDead)
         {
-            if (score > highScore) 
-            highScore = score;
-            SaveHighScore(); //permanente
+            if (score > highScore) {
+                highScore = score;
+                SaveHighScore(); //permanente
+            }
             state = GameState.GameOver;
         }
 
             if (enemies.Count == 0)
         {
-            if (score > highScore) 
+            if (score > highScore) {
             highScore = score;
             SaveHighScore(); //permanente
+            }
             state = GameState.Win;
             }
         }
