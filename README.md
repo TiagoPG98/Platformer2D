@@ -158,7 +158,7 @@ O movimento é aplicado separadamente nos eixos X e Y com resolução de colisõ
 
 #### Coyote Time
 
-Permite saltar até **8 frames** após sair do chão. Desenvolvido de raiz baseado no padrão de design documentado em artigos de desenvolvimento de jogos e popularizado por jogos como Celeste (2018). Não existe no MonoGame.Samples/Platformer2D nem no Sokoban do professor — é uma adição original (ref: thealmightyguru.com/Wiki/index.php?title=Coyote_time e ketra-games.com/2021/08/coyote-time-and-jump-buffering.html):
+Permite saltar até **8 frames** após sair do chão. Desenvolvido de raiz baseado no padrão de design documentado em artigos de desenvolvimento de jogos e popularizado por jogos como Celeste (2018).
 
 ```csharp
 if (onGround) coyoteTimer = 8;
