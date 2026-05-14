@@ -54,7 +54,7 @@ O projeto integra elementos de dois repositórios externos com sistemas desenvol
 | Componente | Ficheiro | Baseado em / Referência |
 |---|---|---|
 | Câmara com scroll | `Camera.cs` | Padrão do MonoGame.Samples/Platformer2D (câmara que segue a personagem) |
-| Física do jogador | `Player.cs` | Aula 17 TDJV ("Implementação de Gravidade num jogo 2D"); padrão do MonoGame.Samples/Platformer2D |
+| Física do jogador | `Player.cs` | Padrão do MonoGame.Samples/Platformer2D |
 | Coyote time + Jump buffer | `Player.cs` | Documentado por Maddy Thorson (Celeste, 2018); padrão de platformers modernos |
 | One-way platforms | `Player.cs` | Técnica padrão em platformers 2D; presente no MonoGame.Samples/Platformer2D |
 | Sistema de vidas e invencibilidade | `Player.cs` | Baseado no `liveCount` e `rDown` do Sokoban do professor |
