@@ -147,7 +147,7 @@ animPlayerIdle = new Animation(texture, 0.1f,  false,  1); // Idle.png:  1 frame
 
 ### Física do Jogador
 
-A física do jogador foi desenvolvida de raiz, baseada nos conceitos de gravidade e movimento contínuo lecionados na **aula 17 de TDJV** ("Implementação de Gravidade num jogo 2D") e no padrão de física do `MonoGame.Samples/Platformer2D`. Ao contrário do Sokoban do professor (movimento discreto tile-a-tile) e do SpaceInvaders (movimento em pixels por frame sem gravidade), aqui o movimento é contínuo com acumulação de velocidade por tempo real:
+A física do jogador foi desenvolvida de raiz, baseada nos conceitos de gravidade e movimento contínuo e no padrão de física do `MonoGame.Samples/Platformer2D`. Ao contrário do Sokoban do professor (movimento discreto tile-a-tile) e do SpaceInvaders (movimento em pixels por frame sem gravidade), aqui o movimento é contínuo com acumulação de velocidade por tempo real:
 
 - **Gravidade:** `1600f px/s²` acumulada em `velocity.Y` a cada frame via `dt`
 - **Velocidade máxima de queda:** clampada a `700f px/s` para evitar tunneling em framerates baixos
@@ -418,7 +418,7 @@ Inimigo desenvolvido de raiz, inspirado nos `InvaderSprite` do SpaceInvaders (TP
 ---
 
 ### `Player.cs`
-Classe mais complexa. Desenvolvida de raiz baseada nos conceitos da aula 17 de TDJV e no padrão do `MonoGame.Samples/Platformer2D`.
+Classe mais complexa. Desenvolvida de raiz baseada nos conceitos e no padrão do `MonoGame.Samples/Platformer2D`.
 
 **Constantes de física:**
 - `MoveSpeed = 180f` px/s
