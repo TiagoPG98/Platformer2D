@@ -177,23 +177,6 @@ if (jumpKeyPressed) jumpBuffer = 12;
 else if (jumpBuffer > 0) jumpBuffer--;
 ```
 
-#### One-Way Platforms
-
-Para permitir passar por baixo das plataformas elevadas, a resolução de colisão vertical verifica se o jogador **vinha de cima** antes de aterrar, usando `prevY` guardado antes do movimento vertical. Esta técnica é padrão em platformers 2D, documentada na documentação oficial do MonoGame (ref: docs.monogame.net/articles/tutorials/building_2d_games/12_collision_detection) e presente no `MonoGame.Samples/Platformer2D`. Sem ela, o jogador seria empurrado para cima ao tentar passar por baixo, como acontece em sistemas de colisão simples:
-
-```csharp
-float prevY = Position.Y;
-Position.Y += velocity.Y * dt;
-
-bool wasAbove = (prevY - Height) <= p.Top + 4;
-if (velocity.Y >= 0 && wasAbove) // cai e vinha de cima → aterra
-{
-    Position.Y = p.Top;
-    velocity.Y = 0;
-    onGround   = true;
-}
-// se vinha de baixo e está a cair → não faz nada (passa por baixo)
-```
 
 ### Sistema de Disparo (inspirado no SpaceInvaders — TP1)
 
@@ -530,7 +513,7 @@ dotnet run
 
 - **`source Rectangle` com `FrameWidth`** => corrigido em `AnimationPlayer.Draw()`. A versão adaptada usava `FrameHeight` onde devia usar `FrameWidth`, causando sprites cortados incorretamente em animações com frames não quadrados
 
-- **One-way platforms com `prevY`** => técnica padrão de platformers 2D presente no `MonoGame.Samples/Platformer2D`; guardar `prevY` antes do movimento vertical permite distinguir "vir de cima" (aterrar) de "vir de baixo" (passar por baixo)
+- **One-way platforms com `prevY`** => técnica padrão de platformers 2D presente no `MonoGame.Samples/Platformer2D`; guardar `prevY` antes do movimento vertical permite distinguir "vir de cima" (aterrar) de "vir de baixo" (passar por baixo) - não operacional
 
 - **Coyote time (8 frames) + Jump buffer (12 frames)** => padrão documentado por Maddy Thorson (Celeste, 2018) para responsividade de saltos; desenvolvido de raiz sem equivalente no MonoGame.Samples ou Sokoban
 
@@ -560,9 +543,6 @@ dotnet run
 
 **3. Sprite do jogador e disparo para a esquerda por defeito**
 `facing` inicial era `SpriteEffects.None` (face esquerda) com `facingDir = 1` (direita) — jogador parecia virar para a esquerda mas disparava para a direita. Corrigido: `facing = SpriteEffects.FlipHorizontally` inicialmente.
-
-**4. Jogador não passava por baixo das plataformas**
-Resolução vertical aplicava aterragem independentemente da origem. Corrigido com `prevY`.
 
 **5. Delay percetível no salto**
 Edge detection com `prevKeys` requeria timing preciso. Corrigido com coyote time (8 frames) e jump buffer (12 frames).
